@@ -8,4 +8,4 @@ Since many Microsoft security products and services connect to the Microsoft Gra
 
 # Conclusion
 
-If you are missing any function, please let me know or add a GitHub issue and I will take a look. For more information about what the script can do, check out my blog post at https://thalpius.com
+If you are missing any research question, please let me know or add a GitHub issue and I will do my best to add it to the script. For more information about what the script can do, check out my blog post at https://thalpius.com
