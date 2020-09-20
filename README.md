@@ -8,4 +8,4 @@ Since many Microsoft security products and services connect to the Microsoft Gra
 
 # Conclusion
 
-If you are missing any research questions, please let me know or add a GitHub issue and I will do my best to add it to the script. For more information about what the script can do, check out my blog post at https://thalpius.com
+If you are missing any research questions, please let me know or add a GitHub issue and I will do my best to add it to the script. For more information about what the script can do, check out my blog post at https://thalpius.com/2020/09/21/microsoft-office-365-incident-response-using-the-microsoft-graph-security-api/
