@@ -246,6 +246,7 @@ function thalpiusGetSignins {
     }
     process {
         try {
+            $queryResults = @()
             if ($userPrincipalName) {
                 $Uri = "https://graph.microsoft.com/beta/auditLogs/signIns?&`$filter=userPrincipalName eq '$userPrincipalName'"
             }
