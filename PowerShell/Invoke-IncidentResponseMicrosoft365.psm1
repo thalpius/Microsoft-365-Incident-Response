@@ -17,6 +17,7 @@
     DelegatedPermissionGrant.ReadWrite.All
     AuditLog.Read.All
     Mail.Read
+    MailboxSettings.Read
 
   For more information about the Microsoft Graph see https://docs.microsoft.com/en-us/graph/api/overview?view=graph-rest-beta
  
