@@ -123,7 +123,7 @@ function RR-GetSkus {
         }
     }
 }
-function tRR-GetAcceptedDomains {
+function RR-GetAcceptedDomains {
     param()
     begin {
         Write-Host "Getting Accepted Domains..."
@@ -150,7 +150,6 @@ function tRR-GetAcceptedDomains {
         }
     }
 }
-
 function RR-GetAcceptedDomainsTxtRecords {
     param()
     begin {
