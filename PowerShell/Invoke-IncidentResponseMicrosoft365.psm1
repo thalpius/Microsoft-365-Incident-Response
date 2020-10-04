@@ -150,39 +150,6 @@ function RR-GetAcceptedDomains {
         }
     }
 }
-function RR-GetAcceptedDomainsTxtRecords {
-    param()
-    begin {
-        Write-Host "Getting Accepted Domains..."
-    }
-    process {
-        try {
-            $queryResults = @()
-            $result = @()
-            $Uri = "https://graph.microsoft.com/beta/domains"
-            do {
-                $domains = Invoke-RestMethod -Uri $Uri -Headers $Header -Method Get -ContentType "application/json"
-                $queryResults += $domains.value
-                $uri = $domains.'@odata.nextlink'
-            } until (!($uri))
-            $acceptedDomains = $queryResults.id
-            foreach ($domain in $acceptedDomains) {
-                $resultDomain = Resolve-DnsName -Name $domain -Type txt
-                $result += $resultDomain
-            }
-            $array.Add("Domain TXT Records", $result)
-        }
-        catch {
-            Write-Host $_.Exception
-            exit
-        }
-    }
-    end {
-        if ($?) {
-            Write-host "Getting Accepted Domains completed successfully..."
-        }
-    }
-}
 function RR-GetInboxRules {
     param(
         [parameter(Mandatory = $false, HelpMessage = "Enter a username")]
@@ -398,6 +365,70 @@ function RR-GetEmailByBody {
         }
     }
 }
+function RR-GetAttachment {
+    param(
+        [parameter(Mandatory = $true, HelpMessage = "Enter a filename")]
+        [ValidateNotNullOrEmpty()]
+        [string]$fileName
+    )
+    begin {
+        Write-Host "Getting filename..."
+    }
+    process {
+        try {
+            $queryResults = @()
+            $allAttachments = @()
+            $allMessages = @()
+            $Uri = 'https://graph.microsoft.com/beta/users'
+            do {
+                try {
+                    $companyUsers = Invoke-RestMethod -Uri $Uri -Headers $Header -Method Get -ContentType "application/json"
+                }
+                catch {
+                    $incorrectRequest++
+                }
+                $queryResults += $companyUsers.value
+                $uri = $companyUsers.'@odata.nextlink'
+            } until (!($uri))
+            foreach ($user in $queryResults) {
+                $uri = "https://graph.microsoft.com/beta/users/$($user.userPrincipalName)/messages"
+                do {
+                    try {
+                        $companyUser = Invoke-RestMethod -Uri $Uri -Headers $Header -Method Get -ContentType "application/json"
+                    }
+                    catch {
+                        $incorrectRequest++
+                    }
+                    $allMessages += $companyUser.value
+                    $uri = $companyUser.'@odata.nextlink'
+                } until (!($uri))
+                foreach ($message in $allMessages) {
+                    $uri = "https://graph.microsoft.com/beta/users/$($user.userPrincipalName)/messages/$($message.id)/attachments"
+                    try {
+                        $attachment = Invoke-RestMethod -Uri $Uri -Headers $Header -Method Get -ContentType "application/json"
+                    }
+                    catch {
+                        $incorrectRequest++
+                    }
+                    if ($attachment.value.name -match $fileName) {
+                        $allAttachments += $user.userPrincipalName
+                    }
+ 
+                }
+            }
+            $array.Add("Attachment $fileName found", $allAttachments)
+        }
+        catch {
+            Write-Host $_.Exception
+            exit
+        }
+    }
+    end {
+        if ($?) {
+            Write-host "Getting filename completed successfully..."
+        }
+    }
+}
 function RR-GetAttachments {
     param(
         [parameter(Mandatory = $true, HelpMessage = "Enter a username")]
@@ -416,6 +447,7 @@ function RR-GetAttachments {
     process {
         try {
             $allAttachments = @()
+            $allMessages = @()
             $uri = "https://graph.microsoft.com/beta/users/$($userPrincipalName)/messages"
             do {
                 $companyUser = Invoke-RestMethod -Uri $Uri -Headers $Header -Method Get -ContentType "application/json"
