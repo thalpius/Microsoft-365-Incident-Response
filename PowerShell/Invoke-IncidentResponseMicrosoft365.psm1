@@ -31,11 +31,11 @@
  
 .OUTPUTS
  
-  Output will be saved to a JSON file using the thalpiusOutputArray function.
+  Output will be saved to a JSON file using the RR-OutputArray function.
  
 .NOTES
  
-  Version:        0.1
+  Version:        0.2
   Author:         R. Roethof
   Creation Date:  9/20/2020
   Website:        https://thalpius.com
@@ -50,7 +50,7 @@ $array = @{ }
 
 #--------------------------------------------[Functions]-------------------------------------------
 
-function thalpiusGetAccessToken {
+function RR-GetAccessToken {
     Param(
         [parameter(Mandatory = $true, HelpMessage = "Specify the application ID")]
         [ValidateNotNullOrEmpty()]
@@ -96,7 +96,7 @@ function thalpiusGetAccessToken {
         }
     }
 }
-function thalpiusGetSkus {
+function RR-GetSkus {
     param()
     begin {
         Write-Host "Getting Subscribed Skus..."
@@ -123,7 +123,7 @@ function thalpiusGetSkus {
         }
     }
 }
-function thalpiusGetAcceptedDomains {
+function tRR-GetAcceptedDomains {
     param()
     begin {
         Write-Host "Getting Accepted Domains..."
@@ -151,7 +151,7 @@ function thalpiusGetAcceptedDomains {
     }
 }
 
-function thalpiusGetAcceptedDomainsTxtRecords {
+function RR-GetAcceptedDomainsTxtRecords {
     param()
     begin {
         Write-Host "Getting Accepted Domains..."
@@ -184,7 +184,7 @@ function thalpiusGetAcceptedDomainsTxtRecords {
         }
     }
 }
-function thalpiusGetInboxRules {
+function RR-GetInboxRules {
     param(
         [parameter(Mandatory = $false, HelpMessage = "Enter a username")]
         [ValidateNotNullOrEmpty()]
@@ -236,7 +236,7 @@ function thalpiusGetInboxRules {
         }
     }
 }
-function thalpiusGetSignins {
+function RR-GetSignins {
     param(
         [parameter(Mandatory = $false, HelpMessage = "Enter a username")]
         [ValidateNotNullOrEmpty()]
@@ -272,7 +272,7 @@ function thalpiusGetSignins {
         }
     }
 }
-function thalpiusGetAuditLogs {
+function RR-GetAuditLogs {
     param(
         [parameter(Mandatory = $false, HelpMessage = "Enter a username")]
         [ValidateNotNullOrEmpty()]
@@ -308,7 +308,7 @@ function thalpiusGetAuditLogs {
         }
     }
 }
-function thalpiusGetEmailBySubject {
+function RR-GetEmailBySubject {
     param(
         [parameter(Mandatory = $true, HelpMessage = "Specify a subject to search for")]
         [ValidateNotNullOrEmpty()]
@@ -351,7 +351,7 @@ function thalpiusGetEmailBySubject {
         }
     }
 }
-function thalpiusGetEmailByBody {
+function RR-GetEmailByBody {
     param(
         [parameter(Mandatory = $true, HelpMessage = "Specify the keyword in the body to search for")]
         [ValidateNotNullOrEmpty()]
@@ -399,7 +399,7 @@ function thalpiusGetEmailByBody {
         }
     }
 }
-function thalpiusGetAttachments {
+function RR-GetAttachments {
     param(
         [parameter(Mandatory = $true, HelpMessage = "Enter a username")]
         [ValidateNotNullOrEmpty()]
@@ -457,7 +457,7 @@ function thalpiusGetAttachments {
         }
     }
 }
-function thalpiusGetAllAppRegistrations {
+function RR-GetAllAppRegistrations {
     param(
     )
     begin {
@@ -492,7 +492,7 @@ function thalpiusGetAllAppRegistrations {
         }
     }
 }
-function thalpiusOutputArray {
+function RR-OutputArray {
     param(
         [parameter(Mandatory = $true, HelpMessage = "Enter a location for the output")]
         [ValidateNotNullOrEmpty()]
